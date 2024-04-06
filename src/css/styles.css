@@ -73,6 +73,10 @@ button {
     transform: rotate(360deg);
   }
 }
+.btn-load-more {
+  width: 100px;
+  height: 50px;
+}
 
 
 
