@@ -1,8 +1,8 @@
-
 import axios from "axios";
-let page = 1;
-let limit = 15;
-export const getPhoto = async (value) => {
+
+const limit = 15;
+
+export const getPhoto = async (value, page = 1) => {
     const KEY = "43058085-482a34128d0dce777e17b7853";
     const url = await axios.get(`https://pixabay.com/api/`, {
         params: {
@@ -18,5 +18,6 @@ export const getPhoto = async (value) => {
    
     return url.data;
 }
+
 
 
