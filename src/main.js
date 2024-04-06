@@ -37,4 +37,3 @@ function handleSubmit(event) {
     });
   searchInput.value = '';
 }
-
