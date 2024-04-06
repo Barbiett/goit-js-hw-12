@@ -1,7 +1,7 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import { getPhoto } from './js/pixabay-api.js';
-import { imageTemplate } from './js/render-functions.js';
+import { imageTemplate } from './js/render-function.js';
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const gallery = document.querySelector('.gallery');
