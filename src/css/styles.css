@@ -23,3 +23,56 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+
+.container {
+  text-align: center;
+  margin: 30px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gal-list {
+  flex-basis: calc((100% - 72px) / 4);
+}
+
+.gal-link {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+
+}
+
+button {
+  color: #fff;
+  background-color: #4e75ff;
+}
+
+.loader {
+  margin-left: 700px;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #110e0e;
+  border-bottom-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
