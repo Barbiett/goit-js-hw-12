@@ -16,19 +16,6 @@ let currentPage = 1;
 let maxPage = 0;
 const pageSize = 15;
 
-function checkBtnStatus() {
-  if (currentPage >= maxPage) {
-    hideLoadMore();
-    iziToast.warning({
-      message: 'Were sorry, but youve reached the end of search results.',
-      color: 'red',
-      position: 'topRight',
-    })
-  } else {
-    showLoadMore();
-  }
-}
-
 function showLoadMore() {
   btnLoadMore.classList.remove('hidden');
 }
@@ -62,7 +49,6 @@ async function handleClickLoadMore() {
   // myScroll();
   checkBtnStatus();
   hideLoader();
-  showLoadMore();
 }
 // ----------------Кнопка загрузить еще---------------//
 
@@ -101,6 +87,18 @@ async function handleSubmit(event) {
   checkBtnStatus();
   event.target.reset();
   hideLoader()
+}
+function checkBtnStatus() {
+  if (currentPage >= maxPage) {
+    iziToast.warning({
+      message: 'Were sorry, but youve reached the end of search results.',
+      color: 'red',
+      position: 'topRight',
+    })
+    hideLoadMore();
+  } else {
+    showLoadMore();
+  }
 }
 // --------------------------Кнопка основная---------------------------//
 // function myScroll() {
