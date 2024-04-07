@@ -18,6 +18,11 @@ const pageSize = 15;
 function checkBtnStatus() {
   if (currentPage >= maxPage) {
     hideLoadMore();
+    iziToast.warning({
+      message: 'This is the last photos from the collection.',
+      color: 'red',
+      position: 'topRight',
+    })
   } else {
     showLoadMore();
   }
@@ -32,11 +37,11 @@ function hideLoadMore() {
 }
 
 function showLoader() {
-  load.classList.remove('hidden');
+  load.classList.add('loader');
 }
 
 function hideLoader() {
-  load.classList.add('hidden');
+  load.classList.remove('loader');
 }
  hideLoadMore()
 // ----------------Кнопка загрузить еще---------------//
@@ -76,17 +81,18 @@ async function handleSubmit(event) {
     console.error('Error fetching data:', err);
     gallery.innerHTML = '';
   }
-    if (data.hits.length === 0) {
-        iziToast.error({
-          message: 'Sorry, there are no images matching your search query. Please try again!',
-          color: 'red',
-          position: 'topRight',
-        });
-      gallery.innerHTML = '';
-        return;
-  };
+  //   if (data.hits.length === 0) {
+  //       iziToast.error({
+  //         message: 'Sorry, there are no images matching your search query. Please try again!',
+  //         color: 'red',
+  //         position: 'topRight',
+  //       });
+  //     gallery.innerHTML = '';
+  //       return;
+  // } 
   checkBtnStatus();
   event.target.reset();
+  hideLoader()
 }
 // --------------------------Кнопка основная---------------------------//
 
