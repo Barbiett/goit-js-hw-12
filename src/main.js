@@ -15,22 +15,6 @@ let currentPage = 1;
 let maxPage = 0;
 const pageSize = 15;
 
-btnLoadMore.addEventListener('click', handleClickLoadMore);
-
-async function handleClickLoadMore() {
-  currentPage += 1;
-  showLoader();
-  try {
-    const data = await getPhoto(query, currentPage);
-    imageTemplate(data);
-  } catch (err) {
-    console.error('Error fetching data:', err);
-  }
-
-  checkBtnStatus();
-  hideLoader();
-}
-
 function checkBtnStatus() {
   if (currentPage >= maxPage) {
     hideLoadMore();
@@ -54,11 +38,30 @@ function showLoader() {
 function hideLoader() {
   load.classList.add('hidden');
 }
+ hideLoadMore()
+// ----------------Кнопка загрузить еще---------------//
+btnLoadMore.addEventListener('click', handleClickLoadMore);
 
+async function handleClickLoadMore(event) {
+  currentPage += 1;
+  showLoader();
+  try {
+    const data = await getPhoto(query, currentPage);
+    imageTemplate(data.hits);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+  }
+
+  checkBtnStatus();
+  hideLoader();
+}
+// ----------------Кнопка загрузить еще---------------//
+
+// --------------------------Кнопка основная---------------------------//
 searchForm.addEventListener('submit', handleSubmit);
-
 async function handleSubmit(event) {
   event.preventDefault();
+  gallery.innerHTML = '';
   currentPage = 1;
   query = event.target.elements.query.value.trim();
   if (query === '') {
@@ -68,12 +71,27 @@ async function handleSubmit(event) {
     showLoader();
     const data = await getPhoto(query, currentPage);
     maxPage = Math.ceil(data.totalResults / pageSize);
-    imageTemplate(data.articles);
+    imageTemplate(data.hits);
   } catch (err) {
     console.error('Error fetching data:', err);
     gallery.innerHTML = '';
   }
-  hideLoader();
+//     if (data.hits.length === 0) {
+//         iziToast.error({
+//           message: 'Sorry, there are no images matching your search query. Please try again!',
+//           color: 'red',
+//           position: 'topRight',
+//         });
+//       gallery.innerHTML = '';
+//         return;
+  // };
   checkBtnStatus();
   event.target.reset();
 }
+// --------------------------Кнопка основная---------------------------//
+
+
+
+
+
+
