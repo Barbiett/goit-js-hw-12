@@ -42,7 +42,7 @@ function hideLoader() {
 // ----------------Кнопка загрузить еще---------------//
 btnLoadMore.addEventListener('click', handleClickLoadMore);
 
-async function handleClickLoadMore(event) {
+async function handleClickLoadMore() {
   currentPage += 1;
   showLoader();
   try {
@@ -70,21 +70,21 @@ async function handleSubmit(event) {
   try {
     showLoader();
     const data = await getPhoto(query, currentPage);
-    maxPage = Math.ceil(data.totalResults / pageSize);
+    maxPage = Math.ceil(data.totalHits / pageSize);
     imageTemplate(data.hits);
   } catch (err) {
     console.error('Error fetching data:', err);
     gallery.innerHTML = '';
   }
-//     if (data.hits.length === 0) {
-//         iziToast.error({
-//           message: 'Sorry, there are no images matching your search query. Please try again!',
-//           color: 'red',
-//           position: 'topRight',
-//         });
-//       gallery.innerHTML = '';
-//         return;
-  // };
+    if (data.hits.length === 0) {
+        iziToast.error({
+          message: 'Sorry, there are no images matching your search query. Please try again!',
+          color: 'red',
+          position: 'topRight',
+        });
+      gallery.innerHTML = '';
+        return;
+  };
   checkBtnStatus();
   event.target.reset();
 }
