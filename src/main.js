@@ -59,7 +59,7 @@ async function handleClickLoadMore() {
     console.error('Error fetching data:', err);
     hideLoadMore();
   }
-  myScroll();
+  // myScroll();
   checkBtnStatus();
   hideLoader();
   showLoadMore();
@@ -103,14 +103,14 @@ async function handleSubmit(event) {
   hideLoader()
 }
 // --------------------------Кнопка основная---------------------------//
-function myScroll() {
-  const height = galItem.getBoundingClientRect().height;
+// function myScroll() {
+//   const height = galItem.getBoundingClientRect().height * 2;
 
-  window.scrollBy({
-    top: height,
-    behavior: 'smooth',
-  });
-}
+//   window.scrollBy({
+//     top: height,
+//     behavior: 'smooth',
+//   });
+// }
 
 
 
