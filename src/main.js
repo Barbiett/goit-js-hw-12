@@ -9,6 +9,7 @@ const searchInput = document.getElementById('search-input');
 const gallery = document.querySelector('.gallery');
 const load = document.querySelector('.loading');
 const btnLoadMore = document.querySelector('.btn-load-more');
+const galItem = document.querySelector(".gallery-item");
 
 let query;
 let currentPage = 1;
@@ -19,7 +20,7 @@ function checkBtnStatus() {
   if (currentPage >= maxPage) {
     hideLoadMore();
     iziToast.warning({
-      message: 'This is the last photos from the collection.',
+      message: 'Were sorry, but youve reached the end of search results.',
       color: 'red',
       position: 'topRight',
     })
@@ -49,16 +50,19 @@ btnLoadMore.addEventListener('click', handleClickLoadMore);
 
 async function handleClickLoadMore() {
   currentPage += 1;
+  hideLoadMore();
   showLoader();
   try {
     const data = await getPhoto(query, currentPage);
     imageTemplate(data.hits);
   } catch (err) {
     console.error('Error fetching data:', err);
+    hideLoadMore();
   }
-
+  myScroll();
   checkBtnStatus();
   hideLoader();
+  showLoadMore();
 }
 // ----------------Кнопка загрузить еще---------------//
 
@@ -84,6 +88,7 @@ async function handleSubmit(event) {
        gallery.innerHTML = '';
        event.target.reset();
        hideLoader();
+       hideLoadMore();
         return;
   } 
     maxPage = Math.ceil(data.totalHits / pageSize);
@@ -91,13 +96,21 @@ async function handleSubmit(event) {
   } catch (err) {
     console.error('Error fetching data:', err);
     gallery.innerHTML = '';
+    hideLoadMore();
   }
   checkBtnStatus();
   event.target.reset();
   hideLoader()
 }
 // --------------------------Кнопка основная---------------------------//
+function myScroll() {
+  const height = galItem.getBoundingClientRect().height;
 
+  window.scrollBy({
+    top: height,
+    behavior: 'smooth',
+  });
+}
 
 
 
